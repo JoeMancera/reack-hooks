@@ -1,0 +1,75 @@
+.characters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+  margin: 15px;
+  justify-items: center;
+}
+
+.card__character {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 250px;
+  height: 250px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card__character figure {
+  margin: 0;
+}
+
+figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.card__character-info {
+  color: rgb(201, 201, 201);
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.795));
+  justify-content: flex-end;
+  height: 242px;
+  width: 240px;
+  position: absolute;
+  border-radius: 12px;
+  padding-inline-start: 5px;
+  padding-inline-end: 5px;
+  padding-block-end: 8px;
+}
+
+.character__status {
+  display: inline-block;
+  content: '';
+  width: 15px;
+  height: 15px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.character-Dead {
+  background-color: #ff0000;
+}
+
+.character-Alive {
+  background-color: #00ff00;
+}
+
+.character-unknown {
+  background-color: #ffff00;
+}
+
+.card__character-info h3 {
+  color: aqua;
+}
+
+.card__character-info ul {
+  list-style: none;
+  padding-left: 24px;
+}
