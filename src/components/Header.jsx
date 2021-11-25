@@ -1,18 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import ThemeContext from "../context/ThemeContext";
 
 const Header = () => {
-  const [isDarkMode, setDarkMode] = useState(true);
-  const color = useContext(ThemeContext);
+  const {isDarkMode, setTheme} = useContext(ThemeContext);
 
   if(isDarkMode){
+    document.body.classList.remove('light-mode');
     document.body.classList.add('dark-mode');
   } else {
     document.body.classList.remove('dark-mode');
+    document.body.classList.add('light-mode');
   }
 
   const handleDarkMode = () => {
-    setDarkMode(!isDarkMode);
+    setTheme(!isDarkMode);
     if(isDarkMode){
       document.body.classList.add('dark-mode');
     } else {
@@ -22,7 +23,7 @@ const Header = () => {
 
   return (
     <div className="header">
-      <h1 style={{ color }}>ReactHooks Shop</h1>
+      <h1>ReactHooks Shop</h1>
       <button type="button" onClick={handleDarkMode}>{isDarkMode ? 'Dark mode' : 'Light mode'}</button>
     </div>
   );

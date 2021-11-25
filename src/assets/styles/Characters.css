@@ -28,11 +28,9 @@ figure img {
   border-radius: 12px;
 }
 
-.card__character-info {
-  color: rgb(201, 201, 201);
+.character__info {
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.795));
   justify-content: flex-end;
   height: 242px;
   width: 240px;
@@ -43,12 +41,21 @@ figure img {
   padding-block-end: 8px;
 }
 
+.character__info-dark {
+  color: rgb(201, 201, 201);
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.795));
+}
+
+.character__info-light {
+  color: black;
+  background-image: linear-gradient(to bottom, transparent, rgba(255, 246, 218, 0.795));
+}
+
 .character__status {
   display: inline-block;
   content: '';
   width: 15px;
   height: 15px;
-  background: var(--color-primary);
   border-radius: 50%;
   margin-right: 8px;
 }
@@ -65,11 +72,15 @@ figure img {
   background-color: #ffff00;
 }
 
-.card__character-info h3 {
+.character__info-dark h3 {
   color: aqua;
 }
 
-.card__character-info ul {
+.character__info-light h3 {
+  color: #1B284A;
+}
+
+.character__info ul {
   list-style: none;
   padding-left: 24px;
 }
