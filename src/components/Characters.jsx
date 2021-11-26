@@ -1,20 +1,56 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useReducer, useMemo } from "react";
+import useCharacters from "../hooks/useCharacters";
 import ThemeContext from "../context/ThemeContext";
 import '../assets/styles/Characters.css'
 
-const Characters = () => {
-  const [characters, setCharacters] = useState([]);
-  const {isDarkMode} = useContext(ThemeContext);
+const initialState = {
+  favorites : []
+}
 
-  useEffect(() => {
-    fetch('https://rickandmortyapi.com/api/character/')
-    .then(response => response.json())
-    .then(data => setCharacters(data.results))
-  }, []);
+const favoriteReduce = (state, action) => {
+  switch (action.type) {
+    case 'ADD_TO_FAVORITE':
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload]
+      }
+    default:
+      return state;
+  }
+}
+
+const Characters = () => {
+  const { characters } = useCharacters();
+  const {isDarkMode} = useContext(ThemeContext);
+  const [myfavorites, dispach] = useReducer(favoriteReduce, initialState);
+  const [search, setSearch] = useState('');
+
+  const handleFavorite = (character) => {
+    dispach({
+      type: 'ADD_TO_FAVORITE',
+      payload: character
+    })
+  }
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value.toLowerCase());
+  }
+
+  const filteredCharacters = useMemo(() => {
+    return characters.filter(character => character.name.toLowerCase().includes(search));
+  }, [characters, search]);	
 
   return (
     <div className="characters">
-      {characters.map(character => (
+      <div className="characters__search">
+        <input type="text" value={search} placeholder="Search" onChange={handleSearch}/>
+      </div>
+      <ul className="characters__container">
+        {myfavorites.favorites.map(character =>( 
+          <li id={'favorite'+character.id}>{character.name}</li>
+        ))}
+      </ul>
+      {filteredCharacters.map(character => (
         <div key={character.id} className="card__character">
           <figure>
             <img loading="lazy" src={character.image} alt={character.name} />
@@ -26,6 +62,7 @@ const Characters = () => {
               <li>Gender: {character.gender}</li>
               <li>Origin: {character.origin.name}</li>
             </ul>
+            <button type="button" onClick={() => handleFavorite(character)}>Add to favorite</button>
           </div>
         </div>
       ))}
